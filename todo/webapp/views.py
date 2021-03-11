@@ -16,6 +16,14 @@ class TasksView(TemplateView):
         context['tasks'] = Task.objects.all()
         return context
 
+class TaskView(TemplateView):
+    template_name = 'task_template.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task'] = get_object_or_404(Task, id=kwargs.get("id"))
+        return context
+
 
 class AddView(View):
     def get(self, request, *args, **kwargs):
@@ -44,7 +52,7 @@ class UpdateView(View):
             'status': task_update.status,
             'type': task_update.type,
         })
-        return render(request, 'update_view.html', context={'form': form})
+        return render(request, 'update_view.html', context={'form': form, 'id': task_update.id})
 
     def post(self, request, *args, **kwargs):
         form = TaskForm(data=request.POST)
@@ -54,6 +62,7 @@ class UpdateView(View):
             task_update.description = form.cleaned_data.get('description')
             task_update.status = form.cleaned_data.get('status')
             task_update.type = form.cleaned_data.get('type')
+            task_update.save()
             return redirect('tasks_view')
 
         return render(request, 'update_view.html', context={'form': form})

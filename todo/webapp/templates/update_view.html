@@ -3,7 +3,7 @@
 {% block content %}
 
     <h3 align="center" style="margin-top:20px">Редактировать задачу</h3>
-    <form method="post">
+    <form action="" method="post">
         {% csrf_token %}
         <div class="form-group">
             {% include "task_form.html" with button_text="Редактировать" %}

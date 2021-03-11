@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from webapp.views import TasksView, AddView, UpdateView, RemoveView
+from webapp.views import TasksView, AddView, UpdateView, RemoveView, TaskView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TasksView.as_view(), name='tasks_view'),
+    path('task/<int:id>', TaskView.as_view(), name='task_view'),
     path('add/', AddView.as_view(), name='add_view'),
     path('update/<int:id>', UpdateView.as_view(), name='update_view'),
     path('remove/<int:id>', RemoveView.as_view(), name='remove_view'),

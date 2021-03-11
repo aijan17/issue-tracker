@@ -21,7 +21,7 @@
   <tbody>
   {%  for t in tasks %}
     <tr>
-      <td>{{ t.summary }}</td>
+      <td><a href="{% url 'task_view' t.id %}">{{ t.summary }}</a></td>
       <td>{{ t.type.title }}</td>
       <td>{{ t.status.title }}</td>
       <td>{{ t.create_date }}</td>

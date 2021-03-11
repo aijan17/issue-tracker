@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Краткое описание </th>
+      <th scope="col">Тип</th>
+      <th scope="col">Статус</th>
+      <th scope="col">Дата создания</th>
+      <th scope="col">Дата обновления</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ task.summary }}</td>
+      <td>{{ task.type.title }}</td>
+      <td>{{ task.status.title }}</td>
+      <td>{{ task.create_date }}</td>
+      <td>{{ task.update_date }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+{%  endblock content %}
