@@ -6,7 +6,7 @@
 {% if tasks.count == 0 %}
     <h3 align="center">Нету записей</h3>
 {% endif %}
-{%  for t in tasks %}
+
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -19,16 +19,21 @@
     </tr>
   </thead>
   <tbody>
+  {%  for t in tasks %}
     <tr>
       <td>{{ t.summary }}</td>
       <td>{{ t.type.title }}</td>
       <td>{{ t.status.title }}</td>
       <td>{{ t.create_date }}</td>
       <td>{{ t.update_date }}</td>
-      <td><a href="{% url 'update_view' t.id %}">Редактировать</a></td>
+      <td>
+          <a class="mr-3" href="{% url 'update_view' t.id %}">Редактировать</a>
+          <a href="{% url 'remove_view' t.id %}">Удалить</a>
+      </td>
     </tr>
+  {% endfor %}
   </tbody>
 </table>
-{% endfor %}
+
 
 {%  endblock content %}

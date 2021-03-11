@@ -57,3 +57,10 @@ class UpdateView(View):
             return redirect('tasks_view')
 
         return render(request, 'update_view.html', context={'form': form})
+
+
+class RemoveView(View):
+    def get(self, request, *args, **kwargs):
+        task = get_object_or_404(Task, id=kwargs.get("id"))
+        task.delete()
+        return redirect('tasks_view')
