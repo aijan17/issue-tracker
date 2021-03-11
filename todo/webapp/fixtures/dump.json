@@ -1,5 +1,29 @@
 [
 {
+  "model": "webapp.task",
+  "pk": 2,
+  "fields": {
+    "summary": "posuda",
+    "status": 1,
+    "type": 2,
+    "description": "asdasd",
+    "create_date": "2021-03-11T12:58:17.751Z",
+    "update_date": "2021-03-11T13:18:51.085Z"
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 3,
+  "fields": {
+    "summary": "tarelka",
+    "status": 1,
+    "type": 2,
+    "description": "pomyt",
+    "create_date": "2021-03-11T13:10:28.082Z",
+    "update_date": "2021-03-11T13:19:03.500Z"
+  }
+},
+{
   "model": "webapp.status",
   "pk": 1,
   "fields": {
