@@ -4,6 +4,8 @@ from django.db import models
 class Task(models.Model):
     id = models.AutoField(primary_key=True)
     summary = models.CharField(max_length=100, null=False, blank=False)
+    status = models.ForeignKey('webapp.Status', on_delete=models.CASCADE, verbose_name='Статус', null=True)
+    type = models.ForeignKey('webapp.Type', on_delete=models.CASCADE, verbose_name='Тип', null=True)
     description = models.CharField(max_length=2000, null=True, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
