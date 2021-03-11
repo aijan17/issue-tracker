@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<a class="btn btn-success mt-3 mb-3" href="">ДОБАВИТЬ ЗАПИСЬ</a>
+<a class="btn btn-success mt-3 mb-3" href="{% url 'add_view' %}">ДОБАВИТЬ ЗАПИСЬ</a>
 
 {% if tasks.count == 0 %}
     <h3 align="center">Нету записей</h3>

@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from webapp.views import TasksView
+from webapp.views import TasksView, AddView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TasksView.as_view(), name='tasks_view'),
+    path('add/', AddView.as_view(), name='add_view'),
 ]
