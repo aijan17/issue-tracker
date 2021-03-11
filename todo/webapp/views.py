@@ -33,3 +33,27 @@ class AddView(View):
             )
             return redirect('tasks_view')
         return render(request, 'task_add_view.html', context={'form': form})
+
+
+class UpdateView(View):
+    def get(self, request, *args, **kwargs):
+        task_update = get_object_or_404(Task, id=kwargs.get("id"))
+        form = TaskForm(initial={
+            'summary': task_update.summary,
+            'description': task_update.description,
+            'status': task_update.status,
+            'type': task_update.type,
+        })
+        return render(request, 'update_view.html', context={'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = TaskForm(data=request.POST)
+        task_update = get_object_or_404(Task, id=kwargs.get("id"))
+        if form.is_valid():
+            task_update.summary = form.cleaned_data.get('summary')
+            task_update.description = form.cleaned_data.get('description')
+            task_update.status = form.cleaned_data.get('status')
+            task_update.type = form.cleaned_data.get('type')
+            return redirect('tasks_view')
+
+        return render(request, 'update_view.html', context={'form': form})

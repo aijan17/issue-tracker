@@ -15,6 +15,7 @@
       <th scope="col">Статус</th>
       <th scope="col">Дата создания</th>
       <th scope="col">Дата обновления</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,7 @@
       <td>{{ t.status.title }}</td>
       <td>{{ t.create_date }}</td>
       <td>{{ t.update_date }}</td>
+      <td><a href="{% url 'update_view' t.id %}">Редактировать</a></td>
     </tr>
   </tbody>
 </table>

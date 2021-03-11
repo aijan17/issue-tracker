@@ -2,11 +2,11 @@
 
 {% block content %}
 
-    <h3 align="center" style="margin-top:20px">Добавить новую задачу</h3>
+    <h3 align="center" style="margin-top:20px">Редактировать задачу</h3>
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
-            {% include "task_form.html" with button_text="Добавить" %}
+            {% include "task_form.html" with button_text="Редактировать" %}
         </div>
     </form>
 
