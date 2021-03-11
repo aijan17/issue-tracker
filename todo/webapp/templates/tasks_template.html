@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<a class="btn btn-success mt-3 mb-3" href="">ДОБАВИТЬ ЗАПИСЬ</a>
+
+{% if tasks.count == 0 %}
+    <h3 align="center">Нету записей</h3>
+{% endif %}
+{%  for t in tasks %}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Краткое описание </th>
+      <th scope="col">Тип</th>
+      <th scope="col">Статус</th>
+      <th scope="col">Дата создания</th>
+      <th scope="col">Дата обновления</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ t.summary }}</td>
+      <td>{{ t.type.title }}</td>
+      <td>{{ t.status.title }}</td>
+      <td>{{ t.create_date }}</td>
+      <td>{{ t.update_date }}</td>
+    </tr>
+  </tbody>
+</table>
+{% endfor %}
+
+{%  endblock content %}

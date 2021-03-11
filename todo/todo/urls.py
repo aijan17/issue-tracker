@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from webapp.views import TasksView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', TasksView.as_view(), name='tasks_view'),
 ]
