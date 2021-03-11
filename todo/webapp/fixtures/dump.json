@@ -1,0 +1,68 @@
+[
+{
+  "model": "webapp.status",
+  "pk": 1,
+  "fields": {
+    "title": "Новый",
+    "value": "New"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 2,
+  "fields": {
+    "title": "В процессе",
+    "value": "In Progress"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 3,
+  "fields": {
+    "title": "Выполнено",
+    "value": "Done"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 1,
+  "fields": {
+    "title": "Задача",
+    "value": "Task"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 2,
+  "fields": {
+    "title": "Улучшение",
+    "value": "Enhancement"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 3,
+  "fields": {
+    "title": "Ошибка",
+    "value": "Bug"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$qZaSfbVHwyYW$Ky93roL/q3PxeZ0KJ/XasR05zsUEtsSbtmxznR7jEcc=",
+    "last_login": "2021-03-11T11:36:57.844Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@admin.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-03-11T11:36:23.531Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
