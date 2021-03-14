@@ -16,6 +16,7 @@ class TasksView(TemplateView):
         context['tasks'] = Task.objects.all()
         return context
 
+
 class TaskView(TemplateView):
     template_name = 'task_template.html'
 
@@ -36,9 +37,10 @@ class AddView(View):
             task = Task.objects.create(
                 summary=form.cleaned_data.get('summary'),
                 description=form.cleaned_data.get('description'),
-                status=form.cleaned_data.get('status'),
-                type=form.cleaned_data.get('type')
+                status=form.cleaned_data.get('status')
             )
+            task.types.set(form.cleaned_data.get('types'))
+            task.save()
             return redirect('tasks_view')
         return render(request, 'task_add_view.html', context={'form': form})
 
@@ -50,7 +52,7 @@ class UpdateView(View):
             'summary': task_update.summary,
             'description': task_update.description,
             'status': task_update.status,
-            'type': task_update.type,
+            'types': [t.id for t in task_update.types.all()],
         })
         return render(request, 'update_view.html', context={'form': form, 'id': task_update.id})
 
@@ -61,7 +63,7 @@ class UpdateView(View):
             task_update.summary = form.cleaned_data.get('summary')
             task_update.description = form.cleaned_data.get('description')
             task_update.status = form.cleaned_data.get('status')
-            task_update.type = form.cleaned_data.get('type')
+            task_update.types.set(form.cleaned_data.get('types'))
             task_update.save()
             return redirect('tasks_view')
 
@@ -73,3 +75,4 @@ class RemoveView(View):
         task = get_object_or_404(Task, id=kwargs.get("id"))
         task.delete()
         return redirect('tasks_view')
+
