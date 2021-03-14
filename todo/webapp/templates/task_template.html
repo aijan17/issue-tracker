@@ -5,7 +5,7 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">Краткое описание </th>
-      <th scope="col">Тип</th>
+      <th scope="col">Типы</th>
       <th scope="col">Статус</th>
       <th scope="col">Описание</th>
       <th scope="col">Дата создания</th>
@@ -15,7 +15,14 @@
   <tbody>
     <tr>
       <td>{{ task.summary }}</td>
-      <td>{{ task.type.title }}</td>
+      <td>
+          {% for type in task.types.all %}
+              {{ type.title  }}
+              {% if not forloop.last  %}
+                  ,
+              {% endif  %}
+          {% endfor %}
+      </td>
       <td>{{ task.status.title }}</td>
       <td>{{ task.description }}</td>
       <td>{{ task.create_date }}</td>

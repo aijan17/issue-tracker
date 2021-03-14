@@ -11,7 +11,7 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">Краткое описание </th>
-      <th scope="col">Тип</th>
+      <th scope="col">Типы</th>
       <th scope="col">Статус</th>
       <th scope="col">Дата создания</th>
       <th scope="col">Дата обновления</th>
@@ -22,7 +22,14 @@
   {%  for t in tasks %}
     <tr>
       <td><a href="{% url 'task_view' t.id %}">{{ t.summary }}</a></td>
-      <td>{{ t.type.title }}</td>
+      <td>
+          {% for type in t.types.all %}
+              {{ type.title  }}
+              {% if not forloop.last  %}
+                  ,
+              {% endif  %}
+          {% endfor %}
+      </td>
       <td>{{ t.status.title }}</td>
       <td>{{ t.create_date }}</td>
       <td>{{ t.update_date }}</td>
