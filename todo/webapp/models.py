@@ -4,14 +4,14 @@ from django.db import models
 class Task(models.Model):
     id = models.AutoField(primary_key=True)
     summary = models.CharField(max_length=100, null=False, blank=False)
-    status = models.ForeignKey('webapp.Status', on_delete=models.CASCADE, verbose_name='Статус', null=True)
-    type = models.ForeignKey('webapp.Type', on_delete=models.CASCADE, verbose_name='Тип', null=True)
+    status = models.ForeignKey('Status', on_delete=models.PROTECT, verbose_name='Статус', null=True)
+    types = models.ManyToManyField('Type', blank=True)
     description = models.CharField(max_length=2000, null=True, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '{}: {}'.format(self.id, self.name, self.description)
+        return '{}: {}'.format(self.id, self.summary, self.description)
 
     class Meta:
         verbose_name = 'Задача'
@@ -33,11 +33,12 @@ class Status(models.Model):
 
 class Type(models.Model):
     id = models.AutoField(primary_key=True)
+    tasks = models.ManyToManyField('Task', blank=True)
     title = models.CharField(max_length=100, null=False, blank=False)
     value = models.CharField(max_length=100, null=False, blank=False)
 
     def __str__(self):
-        return '{}: {}'.format(self.id, self.title, self.value)
+        return '{}: {}'.format(self.id, self.title, self.value, self.tasks)
 
     class Meta:
         verbose_name = 'Тип'
