@@ -1,12 +1,16 @@
 from django.db import models
 
+from webapp.Validator import TaskCreateForm
+
+b = ['@', "$", '!', '#', '%', '^', '*', '~']
+
 
 class Task(models.Model):
     id = models.AutoField(primary_key=True)
-    summary = models.CharField(max_length=100, null=False, blank=False)
-    status = models.ForeignKey('Status', on_delete=models.PROTECT, verbose_name='Статус', null=True)
-    types = models.ManyToManyField('Type', blank=True,related_name='types')
-    description = models.CharField(max_length=2000, null=True, blank=True)
+    summary = models.CharField(max_length=100, validators=(TaskCreateForm(b),))
+    status = models.ForeignKey('Status', on_delete=models.PROTECT, verbose_name='Статус', null=True, )
+    types = models.ManyToManyField('Type', blank=True, related_name='types')
+    description = models.CharField(max_length=200, validators=(TaskCreateForm(b),))
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 
