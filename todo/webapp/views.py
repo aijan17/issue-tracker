@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
-# Create your views here.
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView as CustomFormView
 from django.views.generic.base import View
 
 from webapp.forms import TaskForm
@@ -26,7 +25,7 @@ class TaskView(TemplateView):
         return context
 
 
-class AddView(View):
+class AddView(CustomFormView):
     def get(self, request, *args, **kwargs):
         form = TaskForm()
         return render(request, 'task_add_view.html', context={'form': form})
@@ -34,14 +33,11 @@ class AddView(View):
     def post(self, request, *args, **kwargs):
         form = TaskForm(data=request.POST)
         if form.is_valid():
-            task = Task.objects.create(
-                summary=form.cleaned_data.get('summary'),
-                description=form.cleaned_data.get('description'),
-                status=form.cleaned_data.get('status')
-            )
-            task.types.set(form.cleaned_data.get('types'))
-            task.save()
-            return redirect('tasks_view')
+            try:
+                form.save()
+                return redirect('tasks_view')
+            except:
+                form.add_error(None, 'error')
         return render(request, 'task_add_view.html', context={'form': form})
 
 
@@ -75,4 +71,3 @@ class RemoveView(View):
         task = get_object_or_404(Task, id=kwargs.get("id"))
         task.delete()
         return redirect('tasks_view')
-
