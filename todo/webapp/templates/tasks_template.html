@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<a class="btn btn-success mt-3 mb-3" href="{% url 'add_view' %}">ДОБАВИТЬ ЗАПИСЬ</a>
+<a class="btn btn-success mt-4 mb-3" href="{% url 'add_view' %}">ДОБАВИТЬ ЗАПИСЬ</a>
 
 {% if tasks.count == 0 %}
     <h3 align="center">Нету записей</h3>
@@ -35,7 +35,29 @@
       <td>{{ t.update_date }}</td>
       <td>
           <a class="mr-3" href="{% url 'update_view' t.id %}">Редактировать</a>
-          <a href="{% url 'remove_view' t.id %}">Удалить</a>
+
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#removeModal_">
+                 <a data-toggle="modal" data-target="#removeModal_{{ t.id }}" href="{% url 'remove_view' t.id %}">Удалить</a>
+            </button>
+          <div class="modal fade" id="removeModal_{{ t.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                          <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Удаление</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                          </div>
+                          <div class="modal-body">
+                                Вы действительно хотите удалить?
+                           </div>
+                          <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+                                <a type="button" class="btn btn-danger" href="{% url 'remove_view' t.id %}">Да</a>
+                          </div>
+                    </div>
+              </div>
+          </div>
       </td>
     </tr>
   {% endfor %}
