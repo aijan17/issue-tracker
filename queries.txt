@@ -28,3 +28,10 @@ from django.db.models import Q
 
 Task.objects.filter(Q(types__value='Bug') | Q(summary__icontains='bug') & Q(status__value__in=['New','In Progress']))
 <QuerySet [<Task: 24: дуб>, <Task: 31: yammy2>]>
+
+
+bonuse:2
+
+Task.objects.filter(summary__iexact=Task.objects.values('description'))
+
+<QuerySet [<Task: 17: yammy>]>
