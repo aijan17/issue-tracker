@@ -1,6 +1,6 @@
 from django.db import models
 
-from webapp.Validator import TaskCreateForm
+from .Validator import TaskCreateForm
 
 b = ['@', "$", '!', '#', '%', '^', '*', '~']
 

@@ -1,4 +1,4 @@
-
+Tracking file by folder pattern:  migrations
 [
 {
   "model": "webapp.task",
@@ -22,8 +22,10 @@
     "status": 2,
     "description": "вислвисоис",
     "create_date": "2021-03-18T11:58:46.960Z",
-    "update_date": "2021-03-18T11:58:46.960Z",
-    "types": []
+    "update_date": "2021-03-22T09:35:07.979Z",
+    "types": [
+      3
+    ]
   }
 },
 {
@@ -64,6 +66,76 @@
     "description": "rtgrgrtgtgtg",
     "create_date": "2021-03-18T12:15:37.549Z",
     "update_date": "2021-03-18T12:15:37.549Z",
+    "types": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 29,
+  "fields": {
+    "summary": "task",
+    "status": 3,
+    "description": "xxxxxxxxxxxxxxxxx",
+    "create_date": "2021-03-18T18:31:28.450Z",
+    "update_date": "2021-03-18T18:32:00.593Z",
+    "types": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 30,
+  "fields": {
+    "summary": "program",
+    "status": 1,
+    "description": "c bbjvc vcvcccds",
+    "create_date": "2021-03-22T09:07:49.309Z",
+    "update_date": "2021-03-22T09:07:49.309Z",
+    "types": [
+      2
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 31,
+  "fields": {
+    "summary": "yammy2",
+    "status": 2,
+    "description": "dcdccv",
+    "create_date": "2021-03-22T09:08:03.868Z",
+    "update_date": "2021-03-22T09:08:03.868Z",
+    "types": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 32,
+  "fields": {
+    "summary": "new test",
+    "status": 1,
+    "description": "vvbvvvvvvv",
+    "create_date": "2021-03-22T09:08:29.239Z",
+    "update_date": "2021-03-22T09:08:29.239Z",
+    "types": [
+      2
+    ]
+  }
+},
+{
+  "model": "webapp.task",
+  "pk": 33,
+  "fields": {
+    "summary": "task-test",
+    "status": 3,
+    "description": "dvs sf",
+    "create_date": "2021-03-22T09:08:49.231Z",
+    "update_date": "2021-03-22T09:08:49.231Z",
     "types": [
       1
     ]
