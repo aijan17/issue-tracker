@@ -1,0 +1,32 @@
+task 1:
+
+from webapp.models import Task
+from django.utils import timezone
+
+status_done = Task.objects.filter(status__value='Done')
+start_date = timezone.now()- datetime.timedelta(30)
+end_date = timezone.now()
+result = status_done.filter(update_date__range=(start_date, end_date))
+
+<QuerySet [<Task: 17: yammy>, <Task: 27: knife>, <Task: 29: task>]>
+
+
+task 2:
+
+from django.db.models import Q
+from webapp.models import Task
+
+result = Task.objects.filter(Q(status__value__in= ['New','Done']) | Q(types__value__in=['Task','Bug']))
+
+<QuerySet [<Task: 17: yammy>, <Task: 24: дуб>, <Task: 26: posuda>, <Task: 27: knife>, <Task: 28: test>, <Task: 29: task>, <Task: 30: program>, <Task: 31: yammy2>, <Task: 32: new test>, <Task: 33: task-test>]>
+
+
+task 3:
+
+
+from webapp.models import Task
+from django.db.models import Q
+
+Task.objects.filter(Q(types__value='Bug') & Q(status__value__in=['New','In Progress']))
+
+<QuerySet [<Task: 31: yammy2>, <Task: 24: дуб>]>
