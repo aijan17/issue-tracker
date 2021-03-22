@@ -23,10 +23,8 @@ result = Task.objects.filter(Q(status__value__in= ['New','Done']) | Q(types__val
 
 task 3:
 
-
 from webapp.models import Task
 from django.db.models import Q
 
-Task.objects.filter(Q(types__value='Bug') & Q(status__value__in=['New','In Progress']))
-
-<QuerySet [<Task: 31: yammy2>, <Task: 24: дуб>]>
+Task.objects.filter(Q(types__value='Bug') | Q(summary__icontains='bug') & Q(status__value__in=['New','In Progress']))
+<QuerySet [<Task: 24: дуб>, <Task: 31: yammy2>]>
