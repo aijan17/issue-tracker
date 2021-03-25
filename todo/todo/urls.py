@@ -18,11 +18,12 @@ from django.urls import path
 
 from webapp.views import *
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', TasksView.as_view(), name='tasks_view'),
-    path('task/<int:id>', TaskView.as_view(), name='task_view'),
+    path('', TasksView.as_view(), name='tasks_view',),
+    path('task/<int:pk>', TaskView.as_view(), name='task_view'),
     path('add/', AddView.as_view(), name='add_view'),
-    path('update/<int:id>', UpdateView.as_view(), name='update_view'),
-    path('remove/<int:id>', RemoveView.as_view(), name='remove_view'),
+    path('update/<int:pk>', UpdateViewList.as_view(), name='update_view'),
+    path('remove/<int:pk>', RemoveView.as_view(), name='remove_view'),
 ]
