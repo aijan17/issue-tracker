@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<a class="btn btn-success mt-4 mb-3" href="{% url 'add_view' %}">ДОБАВИТЬ ЗАПИСЬ</a>
+    <span>
+        <a class="btn btn-success mt-4 mb-3" href="{% url 'add_view' %}">ДОБАВИТЬ ЗАПИСЬ</a>
+        {%  include 'search.html' %}
+    </span>
+
+
 
 {% if tasks.count == 0 %}
     <h3 align="center">Нету записей</h3>
@@ -63,6 +68,6 @@
   {% endfor %}
   </tbody>
 </table>
-
+{% include 'pagination.html' %}
 
 {%  endblock content %}
