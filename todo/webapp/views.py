@@ -1,73 +1,83 @@
-from django.shortcuts import render, get_object_or_404, redirect
-
-from django.views.generic import TemplateView, FormView as CustomFormView
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.db.models import Q
+from django.views.generic import DetailView, CreateView, UpdateView, ListView
 from django.views.generic.base import View
 
 from webapp.forms import TaskForm
 from webapp.models import Task
 
 
-class TasksView(TemplateView):
+class TasksView(ListView):
+    model = Task
     template_name = 'tasks_template.html'
+    context_object_name = 'tasks'
+    ordering = ('summary', '-create_date')
+    paginate_by = 10
+    paginate_orphans = 0
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tasks'] = Task.objects.all()
+        context = super(TasksView, self).get_context_data(**kwargs)
+        tasks = Task.objects.all()
+
+        query = self.request.GET.get('q', None)
+        if query is not None:
+            tasks = tasks.filter(
+                Q(summary__icontains=query) |
+                Q(description__icontains=query)
+            )
+
+        paginator = Paginator(tasks, self.paginate_by)
+        page = self.request.GET.get('page')
+
+        try:
+            tasks_pages = paginator.page(page)
+        except PageNotAnInteger:
+            tasks_pages = paginator.page(1)
+        except EmptyPage:
+            tasks_pages = paginator.page(paginator.num_pages)
+
+        context['tasks'] = tasks_pages
         return context
 
 
-class TaskView(TemplateView):
+class TaskView(DetailView):
+    model = Task
     template_name = 'task_template.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['task'] = get_object_or_404(Task, id=kwargs.get("id"))
-        return context
+    def get_object(self):
+        id_ = self.kwargs.get('pk')
+        return get_object_or_404(Task, id=id_)
 
 
-class AddView(CustomFormView):
-    def get(self, request, *args, **kwargs):
-        form = TaskForm()
-        return render(request, 'task_add_view.html', context={'form': form})
+class AddView(CreateView):
+    form_class = TaskForm
+    template_name = 'task_add_view.html'
+    queryset = Task.objects.all()
+    success_url = reverse_lazy('tasks_view')
 
-    def post(self, request, *args, **kwargs):
-        form = TaskForm(data=request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('tasks_view')
-            except:
-                form.add_error(None, 'error')
-        return render(request, 'task_add_view.html', context={'form': form})
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
 
 
-class UpdateView(View):
-    def get(self, request, *args, **kwargs):
-        task_update = get_object_or_404(Task, id=kwargs.get("id"))
-        form = TaskForm(initial={
-            'summary': task_update.summary,
-            'description': task_update.description,
-            'status': task_update.status,
-            'types': [t.id for t in task_update.types.all()],
-        })
-        return render(request, 'update_view.html', context={'form': form, 'id': task_update.id})
+class UpdateViewList(UpdateView):
+    form_class = TaskForm
+    template_name = 'update_view.html'
+    success_url = reverse_lazy('tasks_view')
 
-    def post(self, request, *args, **kwargs):
-        form = TaskForm(data=request.POST)
-        task_update = get_object_or_404(Task, id=kwargs.get("id"))
-        if form.is_valid():
-            task_update.summary = form.cleaned_data.get('summary')
-            task_update.description = form.cleaned_data.get('description')
-            task_update.status = form.cleaned_data.get('status')
-            task_update.types.set(form.cleaned_data.get('types'))
-            task_update.save()
-            return redirect('tasks_view')
+    def get_object(self):
+        id_ = self.kwargs.get('pk')
+        return get_object_or_404(Task, pk=id_)
 
-        return render(request, 'update_view.html', context={'form': form})
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
 
 
 class RemoveView(View):
     def get(self, request, *args, **kwargs):
-        task = get_object_or_404(Task, id=kwargs.get("id"))
+        task = get_object_or_404(Task, id=kwargs.get("pk"))
         task.delete()
         return redirect('tasks_view')
