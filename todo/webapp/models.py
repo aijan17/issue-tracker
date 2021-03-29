@@ -6,6 +6,32 @@ from .Validator import TaskCreateForm, MinLengthValidator
 b = ['@', "$", '!', '#', '%', '^', '*', '~']
 
 
+class Project(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100, verbose_name='Заголовок')
+    desc = models.TextField(max_length=200, verbose_name='Описание')
+    begin_date = models.DateField('date')
+    expiration_date = models.DateField(blank=False)
+    project_task = models.ManyToManyField('Task', verbose_name='Задачи', related_name='projects')
+
+    def __str__(self):
+        return '{}: {}'.format(self.pk, self.title, self.desc)
+
+
+class Projects_tasks(models.Model):
+    id = models.AutoField(primary_key=True)
+    tasks_of_project = models.ManyToManyField('Project', blank=True)
+    title = models.CharField(max_length=200, null=False, blank=False)
+    value = models.CharField(max_length=200, null=False, blank=False)
+
+    def __str__(self):
+        return '{}: {}'.format(self.id, self.title, self.value, self.tasks_of_project)
+
+    class Meta:
+        verbose_name = 'Задача проекта'
+        verbose_name_plural = 'Задачи проекта'
+
+
 class Task(models.Model):
     id = models.AutoField(primary_key=True)
     summary = models.CharField(max_length=100, validators=(MinLengthValidator(5),))
