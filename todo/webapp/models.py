@@ -11,7 +11,7 @@ class Project(models.Model):
     title = models.CharField(max_length=100, verbose_name='Заголовок')
     desc = models.TextField(max_length=200, verbose_name='Описание')
     begin_date = models.DateField('date')
-    expiration_date = models.DateField(blank=False)
+    expiration_date = models.DateField(blank=True,null=True)
     project_task = models.ManyToManyField('Task', verbose_name='Задачи', related_name='projects')
 
     def __str__(self):
