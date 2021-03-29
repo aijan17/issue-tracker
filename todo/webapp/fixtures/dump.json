@@ -134,6 +134,32 @@ Tracking file by folder pattern:  migrations
   }
 },
 {
+  "model": "webapp.project",
+  "pk": 8,
+  "fields": {
+    "title": "errr",
+    "desc": "vfcvfv",
+    "begin_date": "2021-03-01",
+    "expiration_date": null,
+    "project_task": [
+      9
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 9,
+  "fields": {
+    "title": "error",
+    "desc": "c.vnvnvnvnv",
+    "begin_date": "2021-03-02",
+    "expiration_date": null,
+    "project_task": [
+      9
+    ]
+  }
+},
+{
   "model": "webapp.task",
   "pk": 1,
   "fields": {
