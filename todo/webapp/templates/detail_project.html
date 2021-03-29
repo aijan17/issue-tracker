@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% include 'tasks_template.html' %}
+{% block content %}
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Задачи </th>
+          <th scope="col">Типы</th>
+          <th scope="col">Статус</th>
+          <th scope="col">Дата создания</th>
+          <th scope="col">Дата обновления</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+            {% for t in lists_pages %}
+                <tr>
+                  <td><a href="{% url 'task_view' t.id %}">{{ t.summary }}</a></td>
+                  <td>
+                      {% for type in t.types.all %}
+                          {{ type.title  }}
+                          {% if not forloop.last  %}
+                              ,
+                          {% endif  %}
+                      {% endfor %}
+                  </td>
+                  <td>{{ t.status.title }}</td>
+                  <td>{{ t.create_date }}</td>
+                  <td>{{ t.update_date }}</td>
+                  <td>
+                      <a class="mr-3" href="{% url 'update_view' t.id %}">Редактировать</a>
+
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#removeModal_">
+                             <a data-toggle="modal" data-target="#removeModal_{{ t.id }}" href="{% url 'remove_view' t.id %}">Удалить</a>
+                        </button>
+                      <div class="modal fade" id="removeModal_{{ t.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                      <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Удаление</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                      </div>
+                                      <div class="modal-body">
+                                            Вы действительно хотите удалить?
+                                       </div>
+                                      <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+                                            <a type="button" class="btn btn-danger" href="{% url 'remove_view' t.id %}">Да</a>
+                                      </div>
+                                </div>
+                          </div>
+                      </div>
+                  </td>
+                </tr>
+            {%  endfor %}
+        </tbody>
+    </table>
+{% include 'pagination.html' %}
+{%  endblock content %}

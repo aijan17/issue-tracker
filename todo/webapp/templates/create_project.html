@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h3 align="center" style="margin-top:20px">Добавить новый проект</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {% include "task_form.html" with button_text="Добавить" %}
+        </div>
+    </form>
+
+{%  endblock content %}

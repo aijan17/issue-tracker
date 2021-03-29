@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <span>
+        <a class="btn btn-success mt-4 mb-3" href="{% url 'create' %}">ДОБАВИТЬ ПРОЕКТ</a>
+    </span>
+
+    <table class="table mt-4">
+        <thead class="thead-dark">
+            <tr>
+              <th scope="col">Название проекта</th>
+              <th scope="col">Описание</th>
+              <th scope="col">Дата создания</th>
+              <th scope="col">Дата окончания</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for instance in  lists_pages%}
+                <tr>
+                  <td><a href="{% url 'detail' instance.id %}" >{{ instance.title }}</a></td>
+                  <td>{{ instance.desc }}</td>
+                  <td>{{ instance.begin_date }}</td>
+                  <td>{{ instance.expiration_date }}</td>
+
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% include 'pagination.html' %}
+{%  endblock content %}
