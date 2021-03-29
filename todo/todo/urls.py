@@ -26,4 +26,7 @@ urlpatterns = [
     path('add/', AddView.as_view(), name='add_view'),
     path('update/<int:pk>', UpdateViewList.as_view(), name='update_view'),
     path('remove/<int:pk>', RemoveView.as_view(), name='remove_view'),
+    path('home/', ProjectListView.as_view(),name='home'),
+    path('detail/<int:pk>', ProjectDetailView.as_view(),name='detail'),
+    path('create/', ProjectCreateView.as_view(),name='create')
 ]
