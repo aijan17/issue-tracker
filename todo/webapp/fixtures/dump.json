@@ -1,14 +1,147 @@
-
+Tracking file by folder pattern:  migrations
 [
+{
+  "model": "webapp.project",
+  "pk": 1,
+  "fields": {
+    "title": "new projects",
+    "desc": "d,nnnnnc",
+    "begin_date": "2021-03-01",
+    "expiration_date": "2021-03-24",
+    "project_task": [
+      20,
+      21,
+      22
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 2,
+  "fields": {
+    "title": "new2",
+    "desc": "snkncbbcbs",
+    "begin_date": "2021-03-01",
+    "expiration_date": "2021-03-25",
+    "project_task": [
+      13,
+      14
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 3,
+  "fields": {
+    "title": "test 1",
+    "desc": "sasdasd",
+    "begin_date": "2021-03-25",
+    "expiration_date": "2021-03-31",
+    "project_task": [
+      1,
+      11,
+      12,
+      13
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 4,
+  "fields": {
+    "title": "lkhbkj",
+    "desc": "jkbbbj",
+    "begin_date": "2021-03-25",
+    "expiration_date": "2021-03-31",
+    "project_task": [
+      1,
+      8,
+      9,
+      11,
+      12
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 5,
+  "fields": {
+    "title": "bjkvjbkj",
+    "desc": "lhhohihihhi",
+    "begin_date": "2021-03-25",
+    "expiration_date": "2021-03-31",
+    "project_task": [
+      1,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      15
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 6,
+  "fields": {
+    "title": "новый проект",
+    "desc": "новый проект",
+    "begin_date": "2021-03-01",
+    "expiration_date": "2021-03-01",
+    "project_task": [
+      1,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      21,
+      22,
+      23
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 7,
+  "fields": {
+    "title": "dfkdfhnf",
+    "desc": "dmfndbffbbf",
+    "begin_date": "2021-03-02",
+    "expiration_date": "2021-03-05",
+    "project_task": [
+      9,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      21,
+      22
+    ]
+  }
+},
 {
   "model": "webapp.task",
   "pk": 1,
   "fields": {
     "summary": "yammy",
     "status": 1,
-    "description": "чммммммммммooooooffffffnnniiiiiik",
+    "description": "чммммммммммooooooffffffnnniiiiiiknnn",
     "create_date": "2021-03-24T16:29:12.121Z",
-    "update_date": "2021-03-25T09:06:07.038Z",
+    "update_date": "2021-03-25T16:47:05.178Z",
     "types": [
       1,
       2
@@ -164,12 +297,11 @@
   "fields": {
     "summary": "система уровней",
     "status": 1,
-    "description": "аьджавтжтммттттм",
+    "description": "аьджавтжтммттттмиьсми",
     "create_date": "2021-03-25T10:28:00.884Z",
-    "update_date": "2021-03-25T10:34:27.880Z",
+    "update_date": "2021-03-29T08:18:45.284Z",
     "types": [
-      2,
-      3
+      1
     ]
   }
 },
