@@ -5,14 +5,73 @@ from django.db.models import Q
 from django.views.generic import DetailView, CreateView, UpdateView, ListView
 from django.views.generic.base import View
 
-from webapp.forms import TaskForm
-from webapp.models import Task
+from webapp.forms import TaskForm, ProjectForm
+from webapp.models import Task, Project
+
+
+class ProjectListView(ListView):
+    model = Project
+    template_name = 'home.html'
+    queryset = Project.objects.all()
+    paginate_by = 3
+    paginate_orphans = 0
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectListView, self).get_context_data(**kwargs)
+        projects = Project.objects.all()
+
+        paginator = Paginator(projects, self.paginate_by)
+        page = self.request.GET.get('page')
+
+        try:
+            projects_pages = paginator.page(page)
+        except PageNotAnInteger:
+            projects_pages = paginator.page(1)
+        except EmptyPage:
+            projects_pages = paginator.page(paginator.num_pages)
+
+        context['lists_pages'] = projects_pages
+        return context
+
+
+class ProjectDetailView(DetailView):
+    template_name = 'detail_project.html'
+    model = Project
+    context_object_name = 'project'
+    pk_url_kwarg = 'pk'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectDetailView, self).get_context_data(**kwargs)
+        project_task = Project.objects.get(id=self.kwargs.get('pk')).project_task.all()
+        paginator = Paginator(project_task, 5)
+        page = self.request.GET.get('page')
+
+        try:
+            tasks_pages = paginator.page(page)
+        except PageNotAnInteger:
+            tasks_pages = paginator.page(1)
+        except EmptyPage:
+            tasks_pages = paginator.page(paginator.num_pages)
+
+        context['lists_pages'] = tasks_pages
+        context['is_paginated'] = True
+        return context
+
+
+class ProjectCreateView(CreateView):
+    form_class = ProjectForm
+    template_name = 'create_project.html'
+    queryset = Project.objects.all()
+    success_url = reverse_lazy('tasks_view')
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
 
 
 class TasksView(ListView):
     model = Task
     template_name = 'tasks_template.html'
-    context_object_name = 'tasks'
     ordering = ('summary', '-create_date')
     paginate_by = 10
     paginate_orphans = 0
@@ -38,17 +97,13 @@ class TasksView(ListView):
         except EmptyPage:
             tasks_pages = paginator.page(paginator.num_pages)
 
-        context['tasks'] = tasks_pages
+        context['lists_pages'] = tasks_pages
         return context
 
 
 class TaskView(DetailView):
     model = Task
     template_name = 'task_template.html'
-
-    def get_object(self):
-        id_ = self.kwargs.get('pk')
-        return get_object_or_404(Task, id=id_)
 
 
 class AddView(CreateView):
