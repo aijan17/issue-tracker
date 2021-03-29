@@ -7,7 +7,6 @@
     </span>
 
 
-
 {% if tasks.count == 0 %}
     <h3 align="center">Нету записей</h3>
 {% endif %}
@@ -24,7 +23,7 @@
     </tr>
   </thead>
   <tbody>
-  {%  for t in tasks %}
+  {%  for t in lists_pages %}
     <tr>
       <td><a href="{% url 'task_view' t.id %}">{{ t.summary }}</a></td>
       <td>
