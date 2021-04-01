@@ -1,8 +1,8 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.db.models import Q
-from django.views.generic import DetailView, CreateView, UpdateView, ListView
+from django.views.generic import DetailView, CreateView, UpdateView, ListView, DeleteView
 from django.views.generic.base import View
 
 from webapp.forms import TaskForm, ProjectForm
@@ -69,6 +69,16 @@ class ProjectCreateView(CreateView):
         return super().form_valid(form)
 
 
+class ProjectDeleteView(DeleteView):
+    model = Project
+
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('home')
+
+
 class TasksView(ListView):
     model = Task
     template_name = 'tasks_template.html'
@@ -131,8 +141,11 @@ class UpdateViewList(UpdateView):
         return super().form_valid(form)
 
 
-class RemoveView(View):
+class RemoveView(DeleteView):
+    model = Task
+    success_url = reverse_lazy('tasks_view')
+
     def get(self, request, *args, **kwargs):
-        task = get_object_or_404(Task, id=kwargs.get("pk"))
-        task.delete()
-        return redirect('tasks_view')
+        return self.delete(request, *args, **kwargs)
+
+
