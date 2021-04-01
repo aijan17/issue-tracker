@@ -1,9 +1,8 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.db.models import Q
 from django.views.generic import DetailView, CreateView, UpdateView, ListView, DeleteView
-from django.views.generic.base import View
 
 from webapp.forms import TaskForm, ProjectForm
 from webapp.models import Task, Project
@@ -42,7 +41,8 @@ class ProjectDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ProjectDetailView, self).get_context_data(**kwargs)
-        project_task = Project.objects.get(id=self.kwargs.get('pk')).project_task.all()
+        project = Project.objects.get(id=self.kwargs.get('pk'))
+        project_task = project.tasks.all()
         paginator = Paginator(project_task, 5)
         page = self.request.GET.get('page')
 
@@ -54,6 +54,7 @@ class ProjectDetailView(DetailView):
             tasks_pages = paginator.page(paginator.num_pages)
 
         context['lists_pages'] = tasks_pages
+        context['project'] = project
         context['is_paginated'] = True
         return context
 
@@ -120,17 +121,19 @@ class AddView(CreateView):
     form_class = TaskForm
     template_name = 'task_add_view.html'
     queryset = Task.objects.all()
-    success_url = reverse_lazy('tasks_view')
 
     def form_valid(self, form):
         print(form.cleaned_data)
+        form.project = get_object_or_404(Project, id=self.kwargs.get('pk'))
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('detail', kwargs={'pk': self.kwargs.get('pk')})
 
 
 class UpdateViewList(UpdateView):
     form_class = TaskForm
     template_name = 'update_view.html'
-    success_url = reverse_lazy('tasks_view')
 
     def get_object(self):
         id_ = self.kwargs.get('pk')
@@ -140,6 +143,9 @@ class UpdateViewList(UpdateView):
         print(form.cleaned_data)
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse('detail', kwargs={'pk': self.object.project_id})
+
 
 class RemoveView(DeleteView):
     model = Task
@@ -147,5 +153,7 @@ class RemoveView(DeleteView):
 
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
+
+
 
 
