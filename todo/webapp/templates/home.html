@@ -12,6 +12,7 @@
               <th scope="col">Описание</th>
               <th scope="col">Дата создания</th>
               <th scope="col">Дата окончания</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +22,29 @@
                   <td>{{ instance.desc }}</td>
                   <td>{{ instance.begin_date }}</td>
                   <td>{{ instance.expiration_date }}</td>
-
+                    <td>
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#removeModal_{{ instance.id }}">
+                            Удалить
+                        </button>
+                          <div class="modal fade" id="removeModal_{{ instance.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                          <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Удаление</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                          </div>
+                                          <div class="modal-body">
+                                                Вы действительно хотите удалить?
+                                           </div>
+                                          <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+                                              <a class="btn btn-danger" href="{% url 'delete_project' instance.id %}">Да</a>
+                                          </div>
+                                </div>
+                          </div>
+                    </td>
                 </tr>
         {% endfor %}
         </tbody>
