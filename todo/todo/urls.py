@@ -28,5 +28,6 @@ urlpatterns = [
     path('remove/<int:pk>', RemoveView.as_view(), name='remove_view'),
     path('home/', ProjectListView.as_view(),name='home'),
     path('detail/<int:pk>', ProjectDetailView.as_view(),name='detail'),
-    path('create/', ProjectCreateView.as_view(),name='create')
+    path('create/', ProjectCreateView.as_view(),name='create'),
+    path('delete/<int:pk>',ProjectDeleteView.as_view(),name='delete_project')
 ]
