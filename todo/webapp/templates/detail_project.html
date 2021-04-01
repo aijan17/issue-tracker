@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% include 'tasks_template.html' %}
 {% block content %}
+
+    <span>
+        <a class="btn btn-success mt-4 mb-3" href="{% url 'add_view' project.id %}">ДОБАВИТЬ ЗАПИСЬ</a>
+        {%  include 'search.html' %}
+    </span>
     <table class="table">
       <thead class="thead-dark">
         <tr>
