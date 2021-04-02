@@ -43,8 +43,16 @@ class ProjectDetailView(DetailView):
         context = super(ProjectDetailView, self).get_context_data(**kwargs)
         project = Project.objects.get(id=self.kwargs.get('pk'))
         project_task = project.tasks.all()
-        paginator = Paginator(project_task, 5)
         page = self.request.GET.get('page')
+
+        query = self.request.GET.get('q', None)
+        if query is not None:
+            project_task = project_task.filter(
+                Q(summary__icontains=query) |
+                Q(description__icontains=query)
+            )
+
+        paginator = Paginator(project_task, 5)
 
         try:
             tasks_pages = paginator.page(page)
@@ -78,38 +86,6 @@ class ProjectDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('home')
-
-
-class TasksView(ListView):
-    model = Task
-    template_name = 'tasks_template.html'
-    ordering = ('summary', '-create_date')
-    paginate_by = 10
-    paginate_orphans = 0
-
-    def get_context_data(self, **kwargs):
-        context = super(TasksView, self).get_context_data(**kwargs)
-        tasks = Task.objects.all()
-
-        query = self.request.GET.get('q', None)
-        if query is not None:
-            tasks = tasks.filter(
-                Q(summary__icontains=query) |
-                Q(description__icontains=query)
-            )
-
-        paginator = Paginator(tasks, self.paginate_by)
-        page = self.request.GET.get('page')
-
-        try:
-            tasks_pages = paginator.page(page)
-        except PageNotAnInteger:
-            tasks_pages = paginator.page(1)
-        except EmptyPage:
-            tasks_pages = paginator.page(paginator.num_pages)
-
-        context['lists_pages'] = tasks_pages
-        return context
 
 
 class TaskView(DetailView):
