@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.db.models import Q
 from django.views.generic import DetailView, CreateView, UpdateView, ListView, DeleteView
@@ -10,7 +10,7 @@ from webapp.models import Task, Project
 
 class ProjectListView(ListView):
     model = Project
-    template_name = 'home.html'
+    template_name = 'project/home.html'
     queryset = Project.objects.all()
     paginate_by = 3
     paginate_orphans = 0
@@ -34,7 +34,7 @@ class ProjectListView(ListView):
 
 
 class ProjectDetailView(DetailView):
-    template_name = 'detail_project.html'
+    template_name = 'project/detail_project.html'
     model = Project
     context_object_name = 'project'
     pk_url_kwarg = 'pk'
@@ -69,9 +69,9 @@ class ProjectDetailView(DetailView):
 
 class ProjectCreateView(CreateView):
     form_class = ProjectForm
-    template_name = 'create_project.html'
+    template_name = 'project/create_project.html'
     queryset = Project.objects.all()
-    success_url = reverse_lazy('tasks_view')
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         print(form.cleaned_data)
@@ -84,32 +84,48 @@ class ProjectDeleteView(DeleteView):
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('home')
 
 
 class TaskView(DetailView):
     model = Task
-    template_name = 'task_template.html'
+    template_name = 'task/task_template.html'
 
 
 class AddView(CreateView):
     form_class = TaskForm
-    template_name = 'task_add_view.html'
+    template_name = 'task/task_add_view.html'
     queryset = Task.objects.all()
+    success_url = 'add_view'
 
     def form_valid(self, form):
         print(form.cleaned_data)
-        form.project = get_object_or_404(Project, id=self.kwargs.get('pk'))
-        return super().form_valid(form)
+        task = form.save(commit=False)
+        task.project = get_object_or_404(Project, id=self.kwargs.get('pk'))
+        task.save()
+        form.save_m2m()
+        return self.get_success_url()
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('detail', kwargs={'pk': self.kwargs.get('pk')})
+        return redirect('detail', pk= self.kwargs.get('pk'))
 
 
 class UpdateViewList(UpdateView):
     form_class = TaskForm
-    template_name = 'update_view.html'
+    template_name = 'task/update_view.html'
 
     def get_object(self):
         id_ = self.kwargs.get('pk')
@@ -119,13 +135,19 @@ class UpdateViewList(UpdateView):
         print(form.cleaned_data)
         return super().form_valid(form)
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('detail', kwargs={'pk': self.object.project_id})
 
 
 class RemoveView(DeleteView):
     model = Task
-    success_url = reverse_lazy('tasks_view')
+    success_url = reverse_lazy('home')
 
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
