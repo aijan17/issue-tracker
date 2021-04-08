@@ -11,6 +11,19 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
+<nav class="navbar">
+   <ul class="menu">
+       <li><a href="{% url "webapp:article__index" %}">На главную</a></li>
+       <li><a href="{% url "webapp:comment_list" %}">Комментарии</a></li>
+       {% if user.is_authenticated %}
+           {% block menu_links %}{% endblock %}
+           <li class="menu-right"><a href="{% url 'accounts:logout' %}" class="nav-link">Выход</a></li>
+           <li class="menu-right">Привет, {{ user.username }}!</li>
+       {% else %}
+           <li class="menu-right"><a href="{% url 'accounts:login' %}" class="nav-link">Вход</a></li>
+       {% endif %}
+   </ul>
+</nav>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="{% url 'home' %}">Главная страница</a>

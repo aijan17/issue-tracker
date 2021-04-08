@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'partial/base.html' %}
 
 {% block content %}
 
@@ -6,7 +6,7 @@
     <form action="" method="post">
         {% csrf_token %}
         <div class="form-group">
-            {% include "task_form.html" with button_text="Редактировать" %}
+            {% include "task/task_form.html" with button_text="Редактировать" %}
         </div>
     </form>
 

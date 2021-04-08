@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% include 'tasks_template.html' %}
+{% extends 'partial/base.html' %}
+{% include 'task/tasks_template.html' %}
 {% block content %}
 
     <span>
@@ -62,5 +62,5 @@
             {%  endfor %}
         </tbody>
     </table>
-{% include 'pagination.html' %}
+{% include 'partial/pagination.html' %}
 {%  endblock content %}
