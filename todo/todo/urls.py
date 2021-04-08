@@ -18,6 +18,8 @@ from django.urls import path
 
 from webapp.views import *
 
+from accounts.views import login_view, logout_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +30,7 @@ urlpatterns = [
     path('', ProjectListView.as_view(),name='home'),
     path('detail/<int:pk>', ProjectDetailView.as_view(),name='detail'),
     path('create/', ProjectCreateView.as_view(),name='create'),
-    path('delete/<int:pk>',ProjectDeleteView.as_view(),name='delete_project')
+    path('delete/<int:pk>',ProjectDeleteView.as_view(),name='delete_project'),
+    path('accounts/login',login_view,name='login'),
+    path('accounts/logout/', logout_view, name='logout')
 ]
