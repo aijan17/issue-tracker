@@ -77,6 +77,12 @@ class ProjectCreateView(CreateView):
         print(form.cleaned_data)
         return super().form_valid(form)
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ProjectDeleteView(DeleteView):
     model = Project
@@ -152,6 +158,11 @@ class RemoveView(DeleteView):
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        return super().dispatch(request, *args, **kwargs)
 
 
 
