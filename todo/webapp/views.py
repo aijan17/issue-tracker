@@ -71,7 +71,7 @@ class ProjectCreateView(CreateView):
     form_class = ProjectForm
     template_name = 'project/create_project.html'
     queryset = Project.objects.all()
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('webapp:home')
 
     def form_valid(self, form):
         print(form.cleaned_data)
@@ -79,7 +79,7 @@ class ProjectCreateView(CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('login')
+            return redirect('accounts:login')
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -92,12 +92,12 @@ class ProjectDeleteView(DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('login')
+            return redirect('accounts:login')
 
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('home')
+        return reverse('webapp:home')
 
 
 class TaskView(DetailView):
@@ -109,7 +109,7 @@ class AddView(CreateView):
     form_class = TaskForm
     template_name = 'task/task_add_view.html'
     queryset = Task.objects.all()
-    success_url = 'add_view'
+    success_url = 'webapp:add_view'
 
     def form_valid(self, form):
         print(form.cleaned_data)
@@ -121,12 +121,12 @@ class AddView(CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('login')
+            return redirect('accounts:login')
 
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return redirect('detail', pk= self.kwargs.get('pk'))
+        return redirect('webapp:detail', pk= self.kwargs.get('pk'))
 
 
 class UpdateViewList(UpdateView):
@@ -143,24 +143,24 @@ class UpdateViewList(UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('login')
+            return redirect('accounts:login')
 
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('detail', kwargs={'pk': self.object.project_id})
+        return reverse('webapp:detail', kwargs={'pk': self.object.project_id})
 
 
 class RemoveView(DeleteView):
     model = Task
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('webapp:home')
 
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('login')
+            return redirect('accounts:login')
 
         return super().dispatch(request, *args, **kwargs)
 
