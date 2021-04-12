@@ -31,7 +31,6 @@ class Task(models.Model):
                                 related_name='tasks',
                                 default=1)
 
-
     def __str__(self):
         return '{}: {}'.format(self.pk, self.summary, self.description)
 
@@ -67,3 +66,4 @@ class Type(models.Model):
     class Meta:
         verbose_name = 'Тип'
         verbose_name_plural = 'Типы'
+
