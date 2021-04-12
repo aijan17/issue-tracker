@@ -1,4 +1,3 @@
-
 [
 {
   "model": "webapp.project",
@@ -332,7 +331,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$216000$En0HANBdETVb$mwndrMv2+H2ep2qApMDLjnS/Q79YZSuGlIQG+HRAy1M=",
-    "last_login": "2021-04-08T10:56:20.400Z",
+    "last_login": "2021-04-12T04:30:00.289Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -341,6 +340,78 @@
     "is_staff": true,
     "is_active": true,
     "date_joined": "2021-04-01T10:34:23.677Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$ALuy1OOEsqwL$3OlTX6aZrfg8ukU9nKG3v06+ehr8yWwT0AwlqTbQDQk=",
+    "last_login": "2021-04-08T14:21:58.421Z",
+    "is_superuser": false,
+    "username": "eee",
+    "first_name": "eee",
+    "last_name": "eee",
+    "email": "aizhan.aslbekova@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-04-08T14:21:58.278Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$yB60PVnmVxBS$gumq2KL2tbGpIWKoJFBbqkDMc00BUKPAn5NeRrW78DY=",
+    "last_login": "2021-04-08T14:24:50.106Z",
+    "is_superuser": false,
+    "username": "aaa",
+    "first_name": "asdad",
+    "last_name": "jadkd",
+    "email": "vasya@mail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-04-08T14:24:49.960Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$WoebV3bev5aE$btLobWZDwOJv8SB3RxpEE999JX6+KkvKE2J/lKot9As=",
+    "last_login": "2021-04-08T14:27:45.151Z",
+    "is_superuser": false,
+    "username": "333",
+    "first_name": "333",
+    "last_name": "333",
+    "email": "joker_2098kgz@mail.ru",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-04-08T14:27:44.991Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$NXBw7kIvRfw0$HchSoodJ8jIkBsyeDVSmbE8UgppBFlXejfOWUzzSsro=",
+    "last_login": "2021-04-12T04:29:51.468Z",
+    "is_superuser": false,
+    "username": "yuna",
+    "first_name": "sdnndd",
+    "last_name": "cjbbbc",
+    "email": "jenni@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-04-12T04:29:51.323Z",
     "groups": [],
     "user_permissions": []
   }
