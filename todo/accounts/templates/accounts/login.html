@@ -1,73 +1,4 @@
 {% load static %}
-{##}
-{##}
-{#<!doctype html>#}
-{##}
-{#<html lang="en">#}
-{##}
-{#<head>#}
-{##}
-{#    <meta charset="UTF-8">#}
-{##}
-{#    <meta name="viewport"#}
-{##}
-{#         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">#}
-{##}
-{#    <meta http-equiv="X-UA-Compatible" content="ie=edge">#}
-{##}
-{##}
-{#    <link rel="stylesheet" href="{% static 'css/style.css' %}">#}
-{##}
-{##}
-{#    <title>Вход</title>#}
-{##}
-{#</head>#}
-{##}
-{#<body>#}
-{##}
-{#<div class="container">#}
-{##}
-{#    <h1>Вход</h1>#}
-{##}
-{#    <form action="{% url 'login' %}" method="post" class="text-center">#}
-{##}
-{#        {% csrf_token %}#}
-{##}
-{#        {% if has_error %}#}
-{##}
-{#            <p class="form-error">Неверное имя пользователя или пароль.</p>#}
-{##}
-{#        {% endif %}#}
-{##}
-{#        <div class="form-group">#}
-{##}
-{#            <label for="username" class="form-label">Имя пользователя:</label>#}
-{##}
-{#            <input type="text" name="username" id="username">#}
-{##}
-{#        </div>#}
-{##}
-{#        <div class="form-group">#}
-{##}
-{#            <label for="password" class="form-label">Пароль:</label>#}
-{##}
-{#            <input type="password" name="password" id="password">#}
-{##}
-{#        </div>#}
-{##}
-{#        <button type="submit">Войти</button>#}
-{##}
-{#    </form>#}
-{##}
-{#</div>#}
-{##}
-{##}
-{#</body>#}
-{##}
-{#</html>#}
-{##}
-{##}
-{##}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"
       xmlns="http://www.w3.org/1999/html">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -97,7 +28,7 @@
         <div class="col-md-offset-4 col-md-4 text-center">
             <h1 class='text-white'>Unique Login Form</h1>
             <div class="form-login"></br>
-                <form action="{% url 'login' %}" method="post" class="text-center">
+                <form action="{% url 'accounts:login' %}" method="post" class="text-center">
 
                     {% csrf_token %}
 
@@ -126,7 +57,7 @@
     </div>
     </br></br>
 </div>
-<a href="{% url 'home' %}">
+<a href="{% url 'webapp:home' %}">
     <h4>Back to HomePage</h4>
 </a>
 </body>
