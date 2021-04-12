@@ -1,5 +1,4 @@
 from django.core.validators import BaseValidator
-from django.forms import forms
 from django.utils.deconstruct import deconstructible
 
 
@@ -22,3 +21,4 @@ class MinLengthValidator(BaseValidator):
 
     def clean(self, x):
         return len(x)
+
