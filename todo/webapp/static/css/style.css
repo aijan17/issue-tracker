@@ -19,53 +19,35 @@
 
 
 .pagination a {
-
     background: #6a7ddd;
-
-    color: white;
-
+    color: cornflowerblue;
     text-decoration: none;
-
 }
 
 
 .pagination a:hover {
-
     background: #6a7dff;
-
     text-decoration: underline;
-
 }
 
 
 .pagination .page-disabled {
-
     background: #6a7dcc;
-
     color: #dddddd
-
 }
 
 
 .pagination .current-page {
-
     display: inline-block;
-
 }
 
 
 .pagination .current-page input {
-
     width: 50px;
-
     padding: 5px 7px;
-
     font-size: inherit;
-
     border-radius: 5px;
-
     text-align: center;
-
     border: solid 1px gray;
 
 }
@@ -85,11 +67,13 @@ body {
 .container {
     padding: 110px;
 }
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #ffffff!important;
+
+::placeholder {
+    color: #ffffff;
     opacity: 1; /* Firefox */
-    font-size:18px!important;
+    font-size:18px;
 }
+
 .form-login {
     background-color: rgba(0,0,0,0.55);
     padding-top: 10px;
@@ -102,14 +86,16 @@ body {
     color:white;
     box-shadow:0 1px 0 #cfcfcf;
 }
+
 .form-control{
     background:transparent!important;
-    color:white!important;
+    color:white;
     font-size: 18px!important;
 }
 h1{
-    color:white!important;
+    color:white;
 }
+
 h4 {
  border:0 solid #fff;
  border-bottom-width:1px;
@@ -120,13 +106,14 @@ h4 {
 .form-control {
     border-radius: 10px;
 }
+
 .text-white{
-    color: white!important;
+    color: white;
 }
+
 .wrapper {
     text-align: center;
 }
-
 
 body, html {
   height: 100%;
@@ -142,6 +129,6 @@ body, html {
   background-size: cover;
 }
 
-.text{
-    color: black
+.black{
+        color:black
 }
