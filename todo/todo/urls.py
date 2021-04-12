@@ -14,23 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.views.generic import RedirectView
 
 from webapp.views import *
 
-from accounts.views import login_view, logout_view
-
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('task/<int:pk>', TaskView.as_view(), name='task_view'),
-    path('add/<int:pk>', AddView.as_view(), name='add_view'),
-    path('update/<int:pk>', UpdateViewList.as_view(), name='update_view'),
-    path('remove/<int:pk>', RemoveView.as_view(), name='remove_view'),
-    path('', ProjectListView.as_view(),name='home'),
-    path('detail/<int:pk>', ProjectDetailView.as_view(),name='detail'),
-    path('create/', ProjectCreateView.as_view(),name='create'),
-    path('delete/<int:pk>',ProjectDeleteView.as_view(),name='delete_project'),
-    path('accounts/login',login_view,name='login'),
-    path('accounts/logout/', logout_view, name='logout')
+    path('admin/',  admin.site.urls),
+    path('webapp/', include('webapp.urls')),
+    path('accounts/',include('accounts.urls')),
+
+    path('', RedirectView.as_view(url='webapp/', permanent=False))
 ]
