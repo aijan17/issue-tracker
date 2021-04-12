@@ -26,9 +26,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-offset-4 col-md-4 text-center">
+            <h4>
+                <a href="{% url 'accounts:register' %}?next={{ request.GET.next }}">
+                    <h4>Register</h4>
+                </a>
+            </h4>
             <h1 class='text-white'>Unique Login Form</h1>
             <div class="form-login"></br>
-                <form action="{% url 'accounts:login' %}" method="post" class="text-center">
+                <form action="" method="post" class="text-center">
 
                     {% csrf_token %}
 
