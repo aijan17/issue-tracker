@@ -3,7 +3,7 @@
 {% block content %}
 
     <span>
-        <a class="btn btn-success mt-4 mb-3" href="{% url 'add_view' project.id %}">ДОБАВИТЬ ЗАПИСЬ</a>
+        <a class="btn btn-success mt-4 mb-3" href="{% url 'webapp:add_view' project.id %}">ДОБАВИТЬ ЗАПИСЬ</a>
         {%  include 'partial/search.html' %}
     </span>
     <table class="table">
@@ -20,7 +20,7 @@
       <tbody>
             {% for t in lists_pages %}
                 <tr>
-                  <td><a href="{% url 'task_view' t.id %}">{{ t.summary }}</a></td>
+                  <td><a href="{% url 'webapp:task_view' t.id %}">{{ t.summary }}</a></td>
                   <td>
                       {% for type in t.types.all %}
                           {{ type.title  }}
@@ -33,10 +33,10 @@
                   <td>{{ t.create_date }}</td>
                   <td>{{ t.update_date }}</td>
                   <td>
-                      <a class="mr-3" href="{% url 'update_view' t.id %}">Редактировать</a>
+                      <a class="mr-3" href="{% url 'webapp:update_view' t.id %}">Редактировать</a>
 
                         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#removeModal_">
-                             <a data-toggle="modal" data-target="#removeModal_{{ t.id }}" href="{% url 'remove_view' t.id %}">Удалить</a>
+                             <a data-toggle="modal" data-target="#removeModal_{{ t.id }}" href="{% url 'webapp:remove_view' t.id %}">Удалить</a>
                         </button>
                       <div class="modal fade" id="removeModal_{{ t.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
@@ -52,7 +52,7 @@
                                        </div>
                                       <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
-                                            <a type="button" class="btn btn-danger" href="{% url 'remove_view' t.id %}">Да</a>
+                                            <a type="button" class="btn btn-danger" href="{% url 'webapp:remove_view' t.id %}">Да</a>
                                       </div>
                                 </div>
                           </div>

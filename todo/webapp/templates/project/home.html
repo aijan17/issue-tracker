@@ -2,7 +2,7 @@
 
 {% block content %}
     <span>
-        <a class="btn btn-success mt-4 mb-3" href="{% url 'create' %}">ДОБАВИТЬ ПРОЕКТ</a>
+        <a class="btn btn-success mt-4 mb-3" href="{% url 'webapp:create' %}">ДОБАВИТЬ ПРОЕКТ</a>
     </span>
 
     <table class="table mt-4">
@@ -18,7 +18,7 @@
         <tbody>
         {% for instance in  lists_pages%}
                 <tr>
-                  <td><a href="{% url 'detail' instance.id %}" >{{ instance.title }}</a></td>
+                  <td><a href="{% url 'webapp:detail' instance.id %}" >{{ instance.title }}</a></td>
                   <td>{{ instance.desc }}</td>
                   <td>{{ instance.begin_date }}</td>
                   <td>{{ instance.expiration_date }}</td>
@@ -40,7 +40,7 @@
                                            </div>
                                           <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
-                                              <a class="btn btn-danger" href="{% url 'delete_project' instance.id %}">Да</a>
+                                              <a class="btn btn-danger" href="{% url 'webapp:delete_project' instance.id %}">Да</a>
                                           </div>
                                 </div>
                           </div>

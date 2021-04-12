@@ -2,7 +2,7 @@
 {% block content %}
 
     <span>
-        <a class="btn btn-success mt-4 mb-3" href="{% url 'add_view' %}">ДОБАВИТЬ ЗАПИСЬ</a>
+        <a class="btn btn-success mt-4 mb-3" href="{% url 'webapp:add_view' %}">ДОБАВИТЬ ЗАПИСЬ</a>
         {%  include 'partial/search.html' %}
     </span>
 
@@ -25,7 +25,7 @@
   <tbody>
   {%  for t in lists_pages %}
     <tr>
-      <td><a href="{% url 'task_view' t.id %}">{{ t.summary }}</a></td>
+      <td><a href="{% url 'webapp:task_view' t.id %}">{{ t.summary }}</a></td>
       <td>
           {% for type in t.types.all %}
               {{ type.title  }}
@@ -38,7 +38,7 @@
       <td>{{ t.create_date }}</td>
       <td>{{ t.update_date }}</td>
       <td>
-          <a class="mr-3" href="{% url 'update_view' t.id %}">Редактировать</a>
+          <a class="mr-3" href="{% url 'webapp:update_view' t.id %}">Редактировать</a>
 
             <button type="button" class="btn btn-link" data-toggle="modal"data-target="#removeModal_{{ t.id }}">
                  Удалить
@@ -57,7 +57,7 @@
                            </div>
                           <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
-                              <a class="btn btn-danger" href="{% url 'remove_view' t.id %}">Да</a>
+                              <a class="btn btn-danger" href="{% url 'webapp:remove_view' t.id %}">Да</a>
                           </div>
                     </div>
               </div>
