@@ -24,3 +24,10 @@ class ProjectForm(forms.ModelForm):
             'begin_date': DateInput(),
             'expiration_date': DateInput()
         }
+
+
+class ProjectUserForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ('users',)
+        widgets = {'users': forms.SelectMultiple(attrs={'class': 'checkbox form-control'}),}

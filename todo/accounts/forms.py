@@ -19,7 +19,7 @@ class MyUserCreationForm(forms.ModelForm):
         first_name = cleaned_data.get('first_name')
         if password and password_confirm and password != password_confirm:
             raise forms.ValidationError('Пароли не совпадают!')
-        if len(last_name) ==0 and len(first_name) == 0:
+        if len(last_name) == 0 and len(first_name) == 0:
             raise forms.ValidationError('Заполните хотя б одну из полей first или last name')
 
     def save(self, commit=True):
