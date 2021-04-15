@@ -4,9 +4,12 @@ from django.contrib.auth import authenticate, login, logout
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
 from accounts.forms import MyUserCreationForm
+from webapp.forms import ProjectUserForm
+from webapp.models import Project
+
 
 
 def login_view(request):
@@ -63,3 +66,14 @@ class RegisterView(CreateView):
             next_url = reverse('webapp:home')
             print(next_url)
         return next_url
+
+
+class UserAdd(UpdateView):
+    model = Project
+    template_name = 'project/user_project_add.html'
+    form_class = ProjectUserForm
+    context_object_name = 'user'
+
+    def get_success_url(self):
+        return reverse('webapp:home')
+

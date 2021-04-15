@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
@@ -67,11 +68,12 @@ class ProjectDetailView(DetailView):
         return context
 
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(PermissionRequiredMixin,CreateView):
     form_class = ProjectForm
     template_name = 'project/create_project.html'
     queryset = Project.objects.all()
     success_url = reverse_lazy('webapp:home')
+    permission_required = ('webapp.add_project',)
 
     def form_valid(self, form):
         print(form.cleaned_data)
@@ -84,8 +86,20 @@ class ProjectCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectUpdateView(PermissionRequiredMixin, UpdateView):
     model = Project
+    template_name = 'project/update.html'
+    form_class = ProjectForm
+    context_object_name = 'project'
+    permission_required = 'webapp.change_project'
+
+    def get_success_url(self):
+        return reverse('webapp:home')
+
+
+class ProjectDeleteView(PermissionRequiredMixin,DeleteView):
+    model = Project
+    permission_required = ('webapp.delete_project',)
 
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
@@ -105,11 +119,11 @@ class TaskView(DetailView):
     template_name = 'task/task_template.html'
 
 
-class AddView(CreateView):
+class AddView(PermissionRequiredMixin,CreateView):
     form_class = TaskForm
     template_name = 'task/task_add_view.html'
     queryset = Task.objects.all()
-    success_url = 'webapp:add_view'
+    permission_required = ('webapp.add_task',)
 
     def form_valid(self, form):
         print(form.cleaned_data)
@@ -128,10 +142,18 @@ class AddView(CreateView):
     def get_success_url(self):
         return redirect('webapp:detail', pk= self.kwargs.get('pk'))
 
+    def has_permission(self):
+        return super().has_permission() and self.request.user in Project.objects.get(pk=self.kwargs.get('pk')).users.all()
 
-class UpdateViewList(UpdateView):
+
+class UpdateViewList(PermissionRequiredMixin,UpdateView):
     form_class = TaskForm
     template_name = 'task/update_view.html'
+    permission_required = ('webapp.change_task',)
+
+    def has_permission(self):
+        print(self.request.user)
+        return super().has_permission() and self.request.user in self.get_object().project.users.all()
 
     def get_object(self):
         id_ = self.kwargs.get('pk')
@@ -141,19 +163,17 @@ class UpdateViewList(UpdateView):
         print(form.cleaned_data)
         return super().form_valid(form)
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('accounts:login')
-
-        return super().dispatch(request, *args, **kwargs)
-
     def get_success_url(self):
         return reverse('webapp:detail', kwargs={'pk': self.object.project_id})
 
 
-class RemoveView(DeleteView):
+class RemoveView(PermissionRequiredMixin,DeleteView):
     model = Task
     success_url = reverse_lazy('webapp:home')
+    permission_required = ('webapp.delete_task',)
+
+    def has_permission(self):
+        return super().has_permission() and self.request.user in self.get_object().project.users.all()
 
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
