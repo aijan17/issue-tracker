@@ -1,4 +1,7 @@
 {% extends 'partial/base.html' %}
+
+
+
 {% include 'task/tasks_template.html' %}
 {% block content %}
 
@@ -6,6 +9,7 @@
         <a class="btn btn-success mt-4 mb-3" href="{% url 'webapp:add_view' project.id %}">ДОБАВИТЬ ЗАПИСЬ</a>
         {%  include 'partial/search.html' %}
     </span>
+
     <table class="table">
       <thead class="thead-dark">
         <tr>
@@ -36,7 +40,9 @@
                       <a class="mr-3" href="{% url 'webapp:update_view' t.id %}">Редактировать</a>
 
                         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#removeModal_">
-                             <a data-toggle="modal" data-target="#removeModal_{{ t.id }}" href="{% url 'webapp:remove_view' t.id %}">Удалить</a>
+                            {% if perms.webapp.delete_task and request.user in project.users.all %}
+                                <a data-toggle="modal" data-target="#removeModal_{{ t.id }}" href="{% url 'webapp:remove_view' t.id %}">Удалить</a>
+                            {% endif %}
                         </button>
                       <div class="modal fade" id="removeModal_{{ t.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
@@ -52,7 +58,9 @@
                                        </div>
                                       <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+
                                             <a type="button" class="btn btn-danger" href="{% url 'webapp:remove_view' t.id %}">Да</a>
+
                                       </div>
                                 </div>
                           </div>
@@ -62,5 +70,19 @@
             {%  endfor %}
         </tbody>
     </table>
+    <hr>
+<ul class="list-group mb-3">
+  <li class="list-group-item disabled">Пользователи проекта</li>
+     {% for u in project.users.all %}
+        <li class="list-group-item">{{ u.username }}</li>
+     {% endfor %}
+</ul>
+
+<span>
+    {% if perms.webapp.add_delete_user and request.user in project.users.all %}
+        <a class="btn btn-outline-warning mt-4 mb-3"  href="{% url 'accounts:add-user' project.pk %}">ДОБАВИТЬ ПОЬЗОВАТЕЛЯ</a>
+    {% endif %}
+</span>
+
 {% include 'partial/pagination.html' %}
 {%  endblock content %}

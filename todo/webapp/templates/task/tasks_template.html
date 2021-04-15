@@ -25,7 +25,9 @@
   <tbody>
   {%  for t in lists_pages %}
     <tr>
-      <td><a href="{% url 'webapp:task_view' t.id %}">{{ t.summary }}</a></td>
+      <td>
+          <a href="{% url 'webapp:task_view' t.id %}">{{ t.summary }}</a>
+      </td>
       <td>
           {% for type in t.types.all %}
               {{ type.title  }}
@@ -38,9 +40,11 @@
       <td>{{ t.create_date }}</td>
       <td>{{ t.update_date }}</td>
       <td>
-          <a class="mr-3" href="{% url 'webapp:update_view' t.id %}">Редактировать</a>
+          {% if perms.webapp.change_task and request.user in project.users.all %}
+                <a class="mr-3" href="{% url 'webapp:update_view' t.id %}">Редактировать</a>
+          {% endif %}
 
-            <button type="button" class="btn btn-link" data-toggle="modal"data-target="#removeModal_{{ t.id }}">
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#removeModal_{{ t.id }}">
                  Удалить
             </button>
           <div class="modal fade" id="removeModal_{{ t.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -57,7 +61,9 @@
                            </div>
                           <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
-                              <a class="btn btn-danger" href="{% url 'webapp:remove_view' t.id %}">Да</a>
+                              {% if perms.webapp.delete_task and request.user in project.users.all %}
+                                  <a class="btn btn-danger" href="{% url 'webapp:remove_view' t.id %}">Да</a>
+                              {% endif %}
                           </div>
                     </div>
               </div>

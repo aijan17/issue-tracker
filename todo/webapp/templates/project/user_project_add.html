@@ -1,0 +1,13 @@
+{% extends 'partial/base.html' %}
+
+{% block content %}
+
+    <h3 align="center" style="margin-top:20px;margin-bottom: 20px ">Добавить пользователя</h3>
+    <form method="post">
+
+        <div class="form-group">
+            {% include "task/task_form.html" with button_text="Добавить" %}
+        </div>
+    </form>
+
+{%  endblock content %}
