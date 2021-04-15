@@ -13,4 +13,5 @@ path('', ProjectListView.as_view(), name='home'),
 path('detail/<int:pk>', ProjectDetailView.as_view(), name='detail'),
 path('create/', ProjectCreateView.as_view(), name='create'),
 path('delete/<int:pk>', ProjectDeleteView.as_view(), name='delete_project'),
+path('update/project/<int:pk>',ProjectUpdateView.as_view(),name='project_update')
 ]
