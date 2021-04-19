@@ -1,14 +1,21 @@
-
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 
 from accounts.forms import MyUserCreationForm
+from accounts.models import Profile
 from webapp.forms import ProjectUserForm
 from webapp.models import Project
+from django.views.generic import DetailView
+
+from django.contrib.auth import get_user_model
+
+
+from django.core.paginator import Paginator
 
 
 
@@ -68,12 +75,43 @@ class RegisterView(CreateView):
         return next_url
 
 
-class UserAdd(UpdateView):
+class UserAdd(PermissionRequiredMixin,UpdateView):
     model = Project
     template_name = 'project/user_project_add.html'
     form_class = ProjectUserForm
     context_object_name = 'user'
+    permission_required = ('webapp.add_delete_user',)
 
     def get_success_url(self):
         return reverse('webapp:home')
+
+    def has_permission(self):
+        return super().has_permission() and self.request.user in self.get_object().users.all()
+
+
+class UserDetailView(LoginRequiredMixin, DetailView):
+    model = get_user_model()
+    template_name = 'accounts/user_detail.html'
+    context_object_name = 'user_object'
+    paginate_related_by = 5
+    paginate_related_orphans = 0
+
+    def get_context_data(self, **kwargs):
+        projects = self.get_object().users.all()
+        paginator = Paginator(projects, self.paginate_related_by, orphans=self.paginate_related_orphans)
+        page_number = self.request.GET.get('page', 1)
+        page = paginator.get_page(page_number)
+        kwargs['page_obj'] = page
+        kwargs['lists_pages'] = page.object_list
+        kwargs['is_paginated'] = page.has_other_pages()
+        return super().get_context_data(**kwargs)
+
+
+class ProfilesList(PermissionRequiredMixin,ListView):
+    model = get_user_model()
+    template_name = 'accounts/profile_list.html'
+    context_object_name = 'profiles'
+    paginate_related_by = 3
+    paginate_related_orphans = 0
+    permission_required = ('accounts.manage_lead',)
 
