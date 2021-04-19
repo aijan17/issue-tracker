@@ -1,0 +1,43 @@
+    {% for instance in  lists_pages%}
+        <tr>
+          <td>
+              <a href="{% url 'webapp:detail' instance.id %}" >{{ instance.title }}</a>
+          </td>
+
+          <td>{{ instance.desc }}</td>
+          <td>{{ instance.begin_date }}</td>
+          <td>{{ instance.expiration_date }}</td>
+            <td>
+                <button  type="button" class="btn btn-link">
+                    {% if perms.webapp.change_project %}
+                        <a href="{%  url 'webapp:project_update' instance.id %}">
+                            Редактирование проекта
+                        </a>
+                    {% endif %}
+                </button>
+                {% if perms.webapp.delete_project %}
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#removeModal_{{ instance.id }}">
+                        Удалить
+                    </button>
+                {% endif %}
+                  <div class="modal fade" id="removeModal_{{ instance.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                  <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Удаление</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                  </div>
+                                  <div class="modal-body">
+                                        Вы действительно хотите удалить?
+                                   </div>
+                                  <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+                                        <a class="btn btn-danger" href="{% url 'webapp:delete_project' instance.id %}">Да</a>
+                                  </div>
+                        </div>
+                  </div>
+            </td>
+        </tr>
+{% endfor %}

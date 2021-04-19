@@ -1,12 +1,11 @@
 {% extends 'partial/base.html' %}
-
-
-
 {% include 'task/tasks_template.html' %}
 {% block content %}
 
     <span>
+    {% if perms.webapp.add_task and request.user in project.users.all %}
         <a class="btn btn-success mt-4 mb-3" href="{% url 'webapp:add_view' project.id %}">ДОБАВИТЬ ЗАПИСЬ</a>
+    {% endif %}
         {%  include 'partial/search.html' %}
     </span>
 
@@ -37,8 +36,9 @@
                   <td>{{ t.create_date }}</td>
                   <td>{{ t.update_date }}</td>
                   <td>
+                  {% if perms.webapp.change_task and request.user in project.users.all %}
                       <a class="mr-3" href="{% url 'webapp:update_view' t.id %}">Редактировать</a>
-
+                    {% endif %}
                         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#removeModal_">
                             {% if perms.webapp.delete_task and request.user in project.users.all %}
                                 <a data-toggle="modal" data-target="#removeModal_{{ t.id }}" href="{% url 'webapp:remove_view' t.id %}">Удалить</a>
@@ -74,7 +74,9 @@
 <ul class="list-group mb-3">
   <li class="list-group-item disabled">Пользователи проекта</li>
      {% for u in project.users.all %}
-        <li class="list-group-item">{{ u.username }}</li>
+        <li class="list-group-item">
+        <a href="{% url 'accounts:user-detail' u.id%}">{{ u.username }}</a>
+        </li>
      {% endfor %}
 </ul>
 

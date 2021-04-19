@@ -13,18 +13,24 @@
 <body class="bg">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'webapp:home' %}">Главная страница</a>
+    <a class="navbar-brand" href="{% url 'webapp:home' %}">Главная страница</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav menu">
+
             {% if user.is_authenticated %}
                {% block menu_links %}{% endblock %}
                <li class="nav-item active"><a href="{% url 'accounts:logout' %}" class="nav-link">Выход</a></li>
             {% else %}
                 <li class="nav-item active"><a href="{% url 'accounts:login' %}?next={{ request.get_full_path }}" class="nav-link">Вход</a></li>
                 <li class="menu-right"><a href="{% url 'accounts:register' %}?next={{ request.get_full_path }}" class="nav-link">Регистрация</a></li>
+            {% endif %}
+             {% if perms.accounts.manage_lead %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:profile' %}">Профили</a>
+                </li>
             {% endif %}
         </ul>
   </div>

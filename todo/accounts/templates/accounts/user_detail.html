@@ -1,0 +1,69 @@
+{% extends 'partial/base.html' %}
+
+{% block title %}Пользователь{% endblock %}
+{% block content %}
+<div class="body-profile">
+    <section class="section about-section gray-bg" id="about">
+                <div class="row align-items-center flex-row-reverse">
+                    <div class="col-lg-6">
+                        <div class="about-text go-to">
+                            <h3 class="dark-color">About Me</h3>
+                            <p> {{ user_object.profile.about_me }} </p>
+                            <div class="row about-list">
+                                <div class="col-md-12">
+                                    <div class="media">
+                                        <label>First Name</label>
+                                        <p>{{ user_object.first_name }}</p>
+                                    </div>
+                                    <div class="media">
+                                        <label>Last Name</label>
+                                        <p>{{ user_object.last_name }}</p>
+                                    </div>
+                                    <div class="media">
+                                        <label>Email</label>
+                                        <p> {{ user_object.email }}</p>
+                                    </div>
+                                    <div class="media">
+                                        <label>link</label>
+                                        <a href="{{ user_object.profile.links }}">{{ user_object.profile.links }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-avatar">
+                            <img class="avatar" src="{{ user_object.profile.avatar.url }}" alt="user picture">
+                        </div>
+                    </div>
+                </div>
+              <div class="counter mt-3">
+
+                  <div class="row ">
+                      <div class="col-12 text-center " style="color: #20247b">
+                            <h5>Projects</h5>
+                        </div>
+                  </div>
+                    <div class="row">
+
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col">Название проекта</th>
+                                  <th scope="col">Описание</th>
+                                  <th scope="col">Дата создания</th>
+                                  <th scope="col">Дата окончания</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% include 'partial/list_template.html' %}
+                            </tbody>
+                        </table>
+                    </div>
+              </div>
+    </section>
+</div>
+
+
+{% endblock %}

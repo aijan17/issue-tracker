@@ -1,0 +1,14 @@
+{% extends 'partial/base.html' %}
+{% block title %}Пользователи{% endblock %}
+{% block content %}
+
+    <div class="list-group text-center">
+          <h5 class="list-group-item list-group-item-action active">
+                Пользователи
+          </h5>
+            {%  for i in profiles %}
+                <a href="{% url 'accounts:user-detail' i.id%}" class="list-group-item list-group-item-action">{{ i.username }}</a>
+            {% endfor %}
+    </div>
+
+{% endblock %}
