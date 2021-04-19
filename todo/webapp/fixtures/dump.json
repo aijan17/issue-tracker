@@ -369,132 +369,53 @@
   }
 },
 {
-  "model": "auth.user",
-  "pk": 20,
+  "model": "accounts.profile",
+  "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$260000$nEsN0kaYEBGlqzjiv5jJe9$+J/Oicxzrlbr1JEUFcHXHOFrmrYBDgDAjDEaTXsmU7A=",
-    "last_login": "2021-04-19T11:35:10.413Z",
-    "is_superuser": false,
-    "username": "manager",
-    "first_name": "manager",
-    "last_name": "managerovich",
-    "email": "vasya@mail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2021-04-15T10:12:18Z",
-    "groups": [
-      4
-    ],
-    "user_permissions": [
-      50,
-      45,
-      25,
-      26,
-      27,
-      37,
-      38,
-      39
-    ]
+    "user": 23,
+    "avatar": "avatars/8dc1ae16db9c4432938a8e79b97eefe3.png",
+    "about_me": "llknfnffnfnnf",
+    "links": "http://127.0.0.1:8000/admin/accounts/profile/1/change/"
   }
 },
 {
-  "model": "auth.user",
-  "pk": 21,
+  "model": "accounts.profile",
+  "pk": 2,
   "fields": {
-    "password": "pbkdf2_sha256$260000$InPiijUnDFTKGXBOqWDOld$xiM3QDlwjMSZ+PmmhG7d+7jhIWMklwVjJVUqL273wCQ=",
-    "last_login": "2021-04-19T11:35:43.889Z",
-    "is_superuser": false,
-    "username": "lead",
-    "first_name": "lead",
-    "last_name": "leader",
-    "email": "beka@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2021-04-15T10:12:50Z",
-    "groups": [
-      5
-    ],
-    "user_permissions": [
-      50,
-      45,
-      37,
-      38,
-      39
-    ]
+    "user": 20,
+    "avatar": "avatars/Tanjiro__Demon_Slayer_.0.png",
+    "about_me": "Madison Blackstone is a director of brand marketing, with experience managing global teams and multi-million-dollar campaigns. Her background in brand strategy, visual design, and account management inform her mindful but competitive approach.",
+    "links": "https://github.com/join/get-started"
   }
 },
 {
-  "model": "auth.user",
-  "pk": 22,
+  "model": "accounts.profile",
+  "pk": 3,
   "fields": {
-    "password": "pbkdf2_sha256$260000$gp0jcukZpqdSZr33zvtqs8$JHGVPkbq6sCu2cnYRu2oeVTramU3HOMSbglffvTWEoM=",
-    "last_login": "2021-04-19T11:37:52.812Z",
-    "is_superuser": false,
-    "username": "dev",
-    "first_name": "dev",
-    "last_name": "",
-    "email": "jenni@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2021-04-15T10:13:18Z",
-    "groups": [
-      6
-    ],
-    "user_permissions": []
+    "user": 21,
+    "avatar": "avatars/why-anime-fans-have-no-jqk0e2yNHK9-ogxKDVM8hr2.1400x1400.jpg",
+    "about_me": null,
+    "links": null
   }
 },
 {
-  "model": "auth.user",
-  "pk": 23,
+  "model": "accounts.profile",
+  "pk": 4,
   "fields": {
-    "password": "pbkdf2_sha256$216000$fxnP8EoZ6X2m$j5XXnlvgnZX3kQ4BDvnAMfoGkIK7pQA341HslCbTGbg=",
-    "last_login": "2021-04-15T10:15:44Z",
-    "is_superuser": false,
-    "username": "admin",
-    "first_name": "tany",
-    "last_name": "tanych",
-    "email": "aizhan.aslbekova@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2021-04-15T10:15:44Z",
-    "groups": [
-      4,
-      5,
-      6
-    ],
-    "user_permissions": [
-      45,
-      25,
-      26,
-      27,
-      37,
-      38,
-      39,
-      40
-    ]
+    "user": 22,
+    "avatar": "",
+    "about_me": null,
+    "links": null
   }
 },
 {
-  "model": "auth.user",
-  "pk": 24,
+  "model": "accounts.profile",
+  "pk": 5,
   "fields": {
-    "password": "pbkdf2_sha256$260000$PiA74zbiu97qxZe403wKzv$ZVFxt7zKn+keoWY0kPWy/AbguypAzAhXkFRzWECwAFM=",
-    "last_login": "2021-04-19T10:43:00.013Z",
-    "is_superuser": true,
-    "username": "aijan",
-    "first_name": "Aijan",
-    "last_name": "Asilbekova",
-    "email": "aijan@mail.ru",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2021-04-15T10:19:01Z",
-    "groups": [
-      4,
-      5
-    ],
-    "user_permissions": [
-      50
-    ]
+    "user": 24,
+    "avatar": "avatars/why-anime-fans-have-no-jqk0e2yNHK9-ogxKDVM8hr2.1400x1400_EII7IBj.jpg",
+    "about_me": "Madison Blackstone is a director of brand marketing, with experience managing global teams and multi-million-dollar campaigns. Her background in brand strategy, visual design, and account management inform her mindful but competitive approach.",
+    "links": "https://github.com/join/get-started"
   }
 }
 ]

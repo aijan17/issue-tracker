@@ -6,6 +6,11 @@
     "name": "Менеджер",
     "permissions": [
       [
+        "manage_lead",
+        "accounts",
+        "profile"
+      ],
+      [
         "add_delete_user",
         "webapp",
         "project"
@@ -49,6 +54,11 @@
   "fields": {
     "name": "Капитан",
     "permissions": [
+      [
+        "manage_lead",
+        "accounts",
+        "profile"
+      ],
       [
         "add_delete_user",
         "webapp",
@@ -96,7 +106,7 @@
   "pk": 20,
   "fields": {
     "password": "pbkdf2_sha256$260000$nEsN0kaYEBGlqzjiv5jJe9$+J/Oicxzrlbr1JEUFcHXHOFrmrYBDgDAjDEaTXsmU7A=",
-    "last_login": "2021-04-19T11:35:10.413Z",
+    "last_login": "2021-04-19T11:35:10Z",
     "is_superuser": false,
     "username": "manager",
     "first_name": "manager",
@@ -111,11 +121,6 @@
       ]
     ],
     "user_permissions": [
-      [
-        "manage_lead",
-        "accounts",
-        "profile"
-      ],
       [
         "add_delete_user",
         "webapp",
@@ -159,7 +164,7 @@
   "pk": 21,
   "fields": {
     "password": "pbkdf2_sha256$260000$InPiijUnDFTKGXBOqWDOld$xiM3QDlwjMSZ+PmmhG7d+7jhIWMklwVjJVUqL273wCQ=",
-    "last_login": "2021-04-19T11:35:43.889Z",
+    "last_login": "2021-04-19T11:35:43Z",
     "is_superuser": false,
     "username": "lead",
     "first_name": "lead",
@@ -174,11 +179,6 @@
       ]
     ],
     "user_permissions": [
-      [
-        "manage_lead",
-        "accounts",
-        "profile"
-      ],
       [
         "add_delete_user",
         "webapp",
@@ -298,7 +298,7 @@
   "pk": 24,
   "fields": {
     "password": "pbkdf2_sha256$260000$PiA74zbiu97qxZe403wKzv$ZVFxt7zKn+keoWY0kPWy/AbguypAzAhXkFRzWECwAFM=",
-    "last_login": "2021-04-19T10:43:00.013Z",
+    "last_login": "2021-04-19T12:06:06.590Z",
     "is_superuser": true,
     "username": "aijan",
     "first_name": "Aijan",
