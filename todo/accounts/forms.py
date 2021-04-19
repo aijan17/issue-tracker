@@ -2,10 +2,12 @@ from django import forms
 
 from django.contrib.auth.models import User
 
+from accounts.models import Profile
+
 
 class MyUserCreationForm(forms.ModelForm):
     password = forms.CharField(label="Password", strip=False, required=True, widget=forms.PasswordInput)
-    password_confirm = forms.CharField(label="Password Confirm", required=True, widget=forms.PasswordInput,  strip=False)
+    password_confirm = forms.CharField(label="Password Confirm", required=True, widget=forms.PasswordInput, strip=False)
 
     def __init__(self, *args, **kwargs):
         super(MyUserCreationForm, self).__init__(*args, **kwargs)
@@ -27,8 +29,18 @@ class MyUserCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
+            Profile.objects.create(user=user)
         return user
 
     class Meta:
         model = User
         fields = ['username', 'password', 'password_confirm', 'first_name', 'last_name', 'email']
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['user','avatar', 'about_me', 'links']
+        widgets = {
+            'about_me': forms.Textarea(attrs={'cols': 50, 'rows': 10})
+        }
