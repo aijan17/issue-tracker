@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import CreateView, UpdateView, ListView
 
-from accounts.forms import MyUserCreationForm
+from accounts.forms import MyUserCreationForm, UserChangeForm, ProfileUpdateForm, PasswordChangeForm
 from accounts.models import Profile
 from webapp.forms import ProjectUserForm
 from webapp.models import Project
@@ -93,7 +93,7 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'accounts/user_detail.html'
     context_object_name = 'user_object'
-    paginate_related_by = 5
+    paginate_related_by = 3
     paginate_related_orphans = 0
 
     def get_context_data(self, **kwargs):
@@ -114,4 +114,69 @@ class ProfilesList(PermissionRequiredMixin,ListView):
     paginate_related_by = 3
     paginate_related_orphans = 0
     permission_required = ('accounts.manage_lead',)
+
+
+class UserChangeView(LoginRequiredMixin,UpdateView):
+    model = get_user_model()
+    form_class = UserChangeForm
+    template_name = 'accounts/user_update.html'
+    context_object_name = 'user_object'
+    profile_form_class = ProfileUpdateForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super(UserChangeView, self).get_context_data(**kwargs)
+        context['profile_form'] = kwargs.get('profile_form')
+        if context['profile_form'] is None:
+            context['profile_form'] = self.get_profile_form()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        user_form = self.get_form()
+        profile_form = self.get_profile_form()
+
+        if user_form.is_valid() and profile_form.is_valid():
+            return self.form_valid(user_form, profile_form)
+        return self.form_invalid(user_form, profile_form)
+
+    def form_valid(self, user_form, profile_form):
+        response = super().form_valid(user_form)
+        profile_form.save()
+        return response
+
+    def form_invalid(self, user_form, profile_form):
+        context = self.get_context_data(form=user_form, profile_form=profile_form)
+        return self.render_to_response(context)
+
+    def get_profile_form(self):
+        form_kwargs = {'instance': self.object.profile}
+        if self.request.method == 'POST':
+            form_kwargs['data'] = self.request.POST
+            form_kwargs['files'] = self.request.FILES
+        return self.profile_form_class(**form_kwargs)
+
+    def get_success_url(self):
+        return reverse('accounts:user-detail', kwargs={'pk': self.object.pk})
+
+
+class UserChangePassword(UpdateView):
+    model = get_user_model()
+    template_name = 'accounts/user_change_pasword.html'
+    form_class = PasswordChangeForm
+    context_object_name = 'user_object'
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def form_valid(self, form):
+        response = super(UserChangePassword, self).form_valid(form)
+        update_session_auth_hash(self.request, self.request.user)
+        return response
+
+    def get_success_url(self):
+        return reverse('accounts:user-detail', kwargs={'pk': self.object.pk})
+
 
