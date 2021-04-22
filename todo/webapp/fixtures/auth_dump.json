@@ -106,7 +106,7 @@
   "pk": 20,
   "fields": {
     "password": "pbkdf2_sha256$260000$nEsN0kaYEBGlqzjiv5jJe9$+J/Oicxzrlbr1JEUFcHXHOFrmrYBDgDAjDEaTXsmU7A=",
-    "last_login": "2021-04-19T11:35:10Z",
+    "last_login": "2021-04-22T11:45:18.461Z",
     "is_superuser": false,
     "username": "manager",
     "first_name": "manager",
@@ -297,11 +297,11 @@
   "model": "auth.user",
   "pk": 24,
   "fields": {
-    "password": "pbkdf2_sha256$260000$PiA74zbiu97qxZe403wKzv$ZVFxt7zKn+keoWY0kPWy/AbguypAzAhXkFRzWECwAFM=",
-    "last_login": "2021-04-19T12:06:06.590Z",
+    "password": "pbkdf2_sha256$260000$0EJ6jFI0JlL8CTskJeOf3P$a6V99BrKbxUmM9eqfkQWh/wkToB0Hi+N3ELAdd/CwtE=",
+    "last_login": "2021-04-22T10:53:16.674Z",
     "is_superuser": true,
     "username": "aijan",
-    "first_name": "Aijan",
+    "first_name": "Aijana",
     "last_name": "Asilbekova",
     "email": "aijan@mail.ru",
     "is_staff": true,
