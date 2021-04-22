@@ -2,6 +2,13 @@
 
 {% block title %}Пользователь{% endblock %}
 {% block content %}
+      {% block menu %}
+            {% if user == user_object %}
+                <li class="menu_right"><a href="{% url 'accounts:change-password' %}">Сменить пароль</a></li>
+                <li class="menu_right"><a href="{% url 'accounts:profile-update' %}">Редактировать профиль</a></li>
+            {% endif %}
+    {% endblock %}
+
 <div class="body-profile">
     <section class="section about-section gray-bg" id="about">
                 <div class="row align-items-center flex-row-reverse">
@@ -33,7 +40,9 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="about-avatar">
+                            {% if user_object.profile.avatar %}
                             <img class="avatar" src="{{ user_object.profile.avatar.url }}" alt="user picture">
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,49 @@
+{% extends 'partial/base.html' %}
+
+{% block title %}Сменить пароль{% endblock %}
+{% block page_header %}Смена пароля{% endblock %}
+{% block content %}
+
+<style>
+html {
+  height: 100%;
+}
+body {
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.login-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+</style>
+
+
+<div class="login-box text-center">
+  <h2>Смена пароля</h2>
+  <form action="" method="POST" enctype="multipart/form-data">
+      {% include "task/task_form.html" with button_text="Сохранить" %}
+  </form>
+</div>
+
+
+{% endblock %}

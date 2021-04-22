@@ -1,0 +1,13 @@
+{% extends 'partial/base.html' %}
+
+{% block title %}Редактировать профиль{% endblock %}
+{% block page_header %}Редактирование профиля{% endblock %}
+
+
+{% block content %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% include "task/task_form.html" with form=profile_form fields_only=True %}
+        {% include "task/task_form.html" with button_text="Сохранить" %}
+    </form>
+
+{% endblock %}
